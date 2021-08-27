@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  url: https://argo-cd.wostal.eu
+  statusbadge.enabled: "true"
+  users.anonymous.enabled: "false"
+  users.session.duration: "24h"
+  resource.customizations: |
+    bitnami.com/SealedSecret:
+      health.lua: |
+        hs = {}
+        hs.status = "Healthy"
+        hs.message = "Controller doesn't report resource status"
+        return hs
+  repositories: |
+    - url: https://github.com/slavic-viking/k8s-system.git
+    - type: helm
+      url: https://bitnami-labs.github.io/sealed-secrets
+      name: sealed-secrets
+    - type: helm
+      url: https://charts.bitnami.com/bitnami
+      name: bitnami
+    - type: helm
+      url: https://charts.jetstack.io
+      name: jetstack
+    - type: helm
+      url: https://kubernetes.github.io/ingress-nginx
+      name: ingress-nginx
+    - type: helm
+      url: https://prometheus-community.github.io/helm-charts
+      name: prometheus-community
+    - url: https://github.com/slavic-viking/kube-prometheus.git
+      name: prometheus-community-git
+    - type: helm
+      url: https://helm.influxdata.com/
+      name: influxdata
+  resource.customizations.health.certmanager.k8s.io-Certificate: |
+    hs = {}
+    if obj.status ~= nil then
+      if obj.status.conditions ~= nil then
+        for i, condition in ipairs(obj.status.conditions) do
+          if condition.type == "Ready" and condition.status == "False" then
+            hs.status = "Degraded"
+            hs.message = condition.message
+            return hs
+          end
+          if condition.type == "Ready" and condition.status == "True" then
+            hs.status = "Healthy"
+            hs.message = condition.message
+            return hs
+          end
+        end
+      end
+    end
+    hs.status = "Progressing"
+    hs.message = "Waiting for certificate"
+    return hs
+  resource.customizations.health.cert-manager.io_Certificate: |
+    hs = {}
+    if obj.status ~= nil then
+      if obj.status.conditions ~= nil then
+        for i, condition in ipairs(obj.status.conditions) do
+          if condition.type == "Ready" and condition.status == "False" then
+            hs.status = "Degraded"
+            hs.message = condition.message
+            return hs
+          end
+          if condition.type == "Ready" and condition.status == "True" then
+            hs.status = "Healthy"
+            hs.message = condition.message
+            return hs
+          end
+        end
+      end
+    end
+    hs.status = "Progressing"
+    hs.message = "Waiting for certificate"
+    return hs
