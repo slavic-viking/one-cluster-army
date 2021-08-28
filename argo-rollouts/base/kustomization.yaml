@@ -12,6 +12,6 @@ resources:
 #- github.com/argoproj/argo-rollouts/manifests/role
 #- github.com/argoproj/argo-rollouts/manifests/dashboard-install
 namespace: argo-rollouts
-#transformers:
-#  - annotations.yaml
-#  - labels.yaml
+transformers:
+  - annotations.yaml
+  - labels.yaml
