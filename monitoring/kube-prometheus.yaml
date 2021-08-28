@@ -1,0 +1,143 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: monitoring
+  source:
+    path: ''
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: '18.0.0'
+    chart: kube-prometheus-stack
+    helm:
+      values: |
+        grafana:
+          admin:
+            existingSecret: "grafana-admin-user"
+            userKey: user
+            passwordKey: password
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              external-dns.alpha.kubernetes.io/hostname: grafana.wostal.eu
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            path: /
+            pathType: Prefix
+            hosts:
+              - grafana.wostal.eu
+            tls:
+              - secretName: grafana-tls
+                hosts:
+                  - grafana.wostal.eu
+          additionalDataSources:
+            - name: dupa
+              type: influxdb
+              database: metrics_db
+              user: metrics_read_user
+              url: http://influx.example.com:8086/
+              jsonData:
+                timeInterval: "15s"
+              secureJsonData:
+                password: yourinfluxpassword
+          dashboardProviders:
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+                - name: nginx
+                  orgId: 1
+                  folder: 'ingress-nginx'
+                  type: file
+                  disableDeletion: true
+                  editable: false
+                  options:
+                    path: /var/lib/grafana/dashboards/nginx
+                - name: argo
+                  orgId: 1
+                  folder: 'argo'
+                  type: file
+                  disableDeletion: true
+                  editable: false
+                  options:
+                    path: /var/lib/grafana/dashboards/argo
+          dashboards:
+            argo:
+              argo-cd:
+                url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+              argo-rollouts:
+                url: https://raw.githubusercontent.com/argoproj/argo-rollouts/master/examples/dashboard.json
+            nginx:
+              nginx:
+                url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/nginx.json
+              request-handling:
+                url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/request-handling-performance.json
+              nginx-daemonset-overview:
+                gnetId: 13736
+                revision: 1
+                datasource: Prometheus
+              nginx-ingress-controller-k8s:
+                gnetId: 14314
+                revision: 2
+                datasource: Prometheus
+        prometheus:
+          prometheusSpec:
+            podMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorSelectorNilUsesHelmValues: false
+            additionalScrapeConfigs:
+              - job_name: argo-rollouts
+                scrape_interval: 15s
+                kubernetes_sd_configs:
+                - role: pod
+                  namespaces:
+                    names:
+                      - argo-rollouts
+              - job_name: 'argo-events'
+                kubernetes_sd_configs:
+                - role: pod
+                  selectors:
+                  - role: pod
+                    label: 'controller in (eventsource-controller,sensor-controller,eventbus-controller)'
+                relabel_configs:
+                - source_labels: [__meta_kubernetes_pod_label_eventbus_name, __meta_kubernetes_pod_label_controller]
+                  action: replace
+                  regex: (.+);eventbus-controller
+                  replacement: $1
+                  target_label: 'eventbus_name'
+                - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_controller]
+                  action: replace
+                  regex: (.+);eventbus-controller
+                  replacement: $1
+                  target_label: 'namespace'
+                - source_labels: [__address__, __meta_kubernetes_pod_label_controller]
+                  action: drop
+                  regex: (.+):(\d222);eventbus-controller
+              - job_name: 'argo-events-controllers'
+                kubernetes_sd_configs:
+                - role: pod
+                  selectors:
+                  - role: pod
+                    label: 'app in (eventsource-controller,sensor-controller,eventbus-controller)'
+                relabel_configs:
+                - source_labels: [__address__, __meta_kubernetes_pod_label_app]
+                  action: replace
+                  regex: (.+);(eventsource-controller|sensor-controller|eventbus-controller)
+                  replacement: $1:7777
+                  target_label: '__address__'
+                - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app]
+                  action: replace
+                  regex: (.+);(eventsource-controller|sensor-controller|eventbus-controller)
+                  replacement: $1
+                  target_label: 'namespace'
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true

@@ -245,3 +245,14 @@ argocd account update-password \
 --current-password $PASS \
 --new-password $ARGOCD_PASS
 ```
+
+From now you can install all apps using Argo CD and git.
+
+## Automate instalation manually installed apps
+
+Projects and applications are defined in misc/argo-cd directory.
+
+## Prometheus
+
+Prometheus stack (Prometheus, Alert Manager and Grafana ) are part of *monitoring* project which is defined in *misc/argo-cd* directory.
+Declaration of kube-prometheus-stack itself is stored in *monitorig/kube-prometheus.yaml* file.

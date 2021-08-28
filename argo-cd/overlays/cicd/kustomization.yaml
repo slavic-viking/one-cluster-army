@@ -5,10 +5,9 @@ bases:
 - github.com/argoproj/argo-cd/manifests/base?ref=v2.1.1
 - github.com/argoproj/argo-cd/manifests/cluster-rbac?ref=v2.1.1
 resources:
-#- ../../base
 - namespace.yaml
 - ingress.yaml
-#- metrics.yaml
+- metrics.yaml
 patchesStrategicMerge:
   - argocd-cm.yaml
 namespace: argocd

@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: core
+  name: monitoring
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: CI/CD
+  description: Monitoring
   sourceRepos:
   - '*'
   destinations:

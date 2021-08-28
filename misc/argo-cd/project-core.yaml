@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: CI/CD
+  description: Core
   sourceRepos:
   - '*'
   destinations:
