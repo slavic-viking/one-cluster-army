@@ -12,20 +12,20 @@ spec:
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: '3.35.0'
     chart: ingress-nginx
-    helm:
-      parameters:
-        - name: controller.metrics.enabled
-          value: "true"
-        - name: controller.metrics.podAnnotations.'prometheus\.io/scrape'
-          value: "true"
-        - name: controller.metrics.podAnnotations."prometheus\.io/port"
-          value: "10254"
-        - name: controller.metrics.serviceMonitor.enabled
-          value: "true"
-        - name: controller.metrics.serviceMonitor.additionalLabels.release
-          value: kube-prometheus
-        - name: controller.metrics.serviceMonitor.namespaceSelector.any
-          value: "true"
+    # helm:
+    #   parameters:
+    #     - name: controller.metrics.enabled
+    #       value: "true"
+    #     - name: controller.metrics.podAnnotations.'prometheus\.io/scrape'
+    #       value: "true"
+    #     - name: controller.metrics.podAnnotations."prometheus\.io/port"
+    #       value: "10254"
+    #     - name: controller.metrics.serviceMonitor.enabled
+    #       value: "true"
+    #     - name: controller.metrics.serviceMonitor.additionalLabels.release
+    #       value: kube-prometheus
+    #     - name: controller.metrics.serviceMonitor.namespaceSelector.any
+    #       value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
