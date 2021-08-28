@@ -6,7 +6,7 @@ bases:
 - github.com/argoproj/argo-rollouts/manifests/role?ref=v1.0.6
 resources:
 - namespace.yaml
-- clusterrolebinding.yaml
+#- clusterrolebinding.yaml
 #- github.com/argoproj/argo-rollouts/manifests/crds
 #- github.com/argoproj/argo-rollouts/manifests/base
 #- github.com/argoproj/argo-rollouts/manifests/role
