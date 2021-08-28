@@ -83,6 +83,10 @@ Some manifests contain my data (email address, url) so please change it :)
 
 `export CERT_EMAIL=...`
 
+`export GRAFANA_USER=...`
+
+`export GRAFANA_PASSWORD=...`
+
 ### NGINX Ingress Controller
 
 ```console
@@ -256,3 +260,19 @@ Projects and applications are defined in misc/argo-cd directory.
 
 Prometheus stack (Prometheus, Alert Manager and Grafana ) are part of *monitoring* project which is defined in *misc/argo-cd* directory.
 Declaration of kube-prometheus-stack itself is stored in *monitorig/kube-prometheus.yaml* file.
+
+### Create secret for Grafana admin user
+
+```console
+kubectl --namespace monitoring \
+    create secret \
+    generic grafana-admin-user \
+    --from-literal=username=$GRAFANA_USER \
+    --from-literal=password=$GRAFANA_PASSWORD \
+    --output json \
+    --dry-run=client \
+    | kubeseal --format yaml \
+    --controller-name=sealed-secrets \
+    --controller-namespace=kube-system \
+    | tee misc/secrets/grafana.yaml
+```
