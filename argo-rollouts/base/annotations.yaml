@@ -1,0 +1,12 @@
+apiVersion: builtin
+kind: AnnotationsTransformer
+metadata:
+  name: notImportantHere
+annotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: 8090
+fieldSpecs:
+- kind: Deployment
+  path: spec/template/metadata/annotations
+  create: true
