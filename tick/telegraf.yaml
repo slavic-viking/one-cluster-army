@@ -10,14 +10,28 @@ spec:
   source:
     path: ''
     repoURL: https://helm.influxdata.com/
-    targetRevision: '1.8.4'
-    chart: telegraf
+    targetRevision: '1.0.22'
+    chart: telegraf-ds
     helm:
       values: |
         envFromSecret: "telegraf-secrets"
         env:
+          # This pulls HOSTNAME from the node, not the pod.
           - name: HOSTNAME
-            value: "telegraf-polling-service"
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          # In test clusters where hostnames are resolved in /etc/hosts on each node,
+          # the HOSTNAME is not resolvable from inside containers
+          # So inject the host IP as well
+          - name: HOSTIP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: "HOST_PROC"
+            value: "/rootfs/proc"
+          - name: "HOST_SYS"
+            value: "/rootfs/sys"
         config:
           agent:
             interval: "10s"
