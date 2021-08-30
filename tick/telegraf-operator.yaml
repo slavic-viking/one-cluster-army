@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: telegraf-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: tick
+  source:
+    path: ''
+    repoURL: https://helm.influxdata.com/
+    targetRevision: '1.2.0'
+    chart: telegraf-operator
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tick
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
