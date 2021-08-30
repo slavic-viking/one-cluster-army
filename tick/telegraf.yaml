@@ -47,8 +47,8 @@ spec:
                 urls:
                   - ["$INFLUXDB_URL"]
                 database: "$INFLUXDB_DB"
-                username = "$INFLUXDB_USER"
-                password = "$INFLUXDB_USER_PASSWORD"
+                username: "$INFLUXDB_USER"
+                password: "$INFLUXDB_USER_PASSWORD"
           inputs:
             - statsd:
                 service_address: ":8125"
