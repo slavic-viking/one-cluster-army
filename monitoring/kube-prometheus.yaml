@@ -83,7 +83,13 @@ spec:
                 revision: 2
                 datasource: Prometheus
         prometheus:
-          
+          resources: {}
+              limits:
+                cpu: 100m
+                memory: 100Mi
+              requests:
+                cpu: 100m
+                memory: 100Mi
           prometheusSpec:
             podMonitorSelectorNilUsesHelmValues: false
             serviceMonitorSelectorNilUsesHelmValues: false
