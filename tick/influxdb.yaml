@@ -22,10 +22,10 @@ spec:
           enabled: true
           tls: true
           secretName: influxdb-tls
-          hostname: influxdb.wostal.eu
+          hostname: influxdb.wostal.systems
           annotations:
             kubernetes.io/ingress.class: nginx
-            external-dns.alpha.kubernetes.io/hostname: influxdb.wostal.eu
+            external-dns.alpha.kubernetes.io/hostname: influxdb.wostal.systems
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
             path: /
   destination:
