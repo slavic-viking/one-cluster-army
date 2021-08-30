@@ -14,18 +14,18 @@ spec:
     chart: telegraf-operator
     helm:
       values: |
-      classes:
-        secretName: "telegraf-operator-classes"
-        default: "infra"
-        data:
-          infra: |
-            [[outputs.influxdb]]
-              urls = ["http://influxdb:8086"]
-            [global_tags]
-              env = "ci"
-              hostname = "$HOSTNAME"
-              nodename = "$NODENAME"
-              type = "infra"
+        classes:
+          secretName: "telegraf-operator-classes"
+          default: "infra"
+          data:
+            infra: |
+              [[outputs.influxdb]]
+                urls = ["http://influxdb:8086"]
+              [global_tags]
+                env = "ci"
+                hostname = "$HOSTNAME"
+                nodename = "$NODENAME"
+                type = "infra"
   destination:
     server: https://kubernetes.default.svc
     namespace: tick
