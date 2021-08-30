@@ -276,3 +276,20 @@ kubectl --namespace monitoring \
     --controller-namespace=kube-system \
     | tee misc/secrets/grafana.yaml
 ```
+
+
+
+
+kubectl --namespace tick \
+    create secret \
+    generic telegraf-secrets \
+    --from-literal=INFLUXDB_DB=$INFLUXDB_DB \
+    --from-literal=INFLUXDB_URL=$INFLUXDB_URL \
+    --from-literal=INFLUXDB_USER=$INFLUXDB_USER \
+    --from-literal=INFLUXDB_PASSWORD=$INFLUXDB_PASSWORD \
+    --output json \
+    --dry-run=client \
+    | kubeseal --format yaml \
+    --controller-name=sealed-secrets \
+    --controller-namespace=kube-system \
+    | tee misc/secrets/telegraf.yaml
