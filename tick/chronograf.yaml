@@ -12,6 +12,9 @@ spec:
     repoURL: https://helm.influxdata.com/
     targetRevision: '1.1.24'
     chart: chronograf
+    helm:
+      parameters:
+        - influxURL: http://influxdb:8006
   destination:
     server: https://kubernetes.default.svc
     namespace: tick
