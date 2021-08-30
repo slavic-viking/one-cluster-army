@@ -44,10 +44,10 @@ spec:
                     critical: 3
           outputs:
             - influxdb:
-                urls: "$INFLUXDB_URL"
-                database: "$INFLUXDB_DB"
-                username: "$INFLUXDB_USER"
-                password: "$INFLUXDB_USER_PASSWORD"
+                urls: $INFLUXDB_URL
+                database: $INFLUXDB_DB
+                username: $INFLUXDB_USER
+                password: $INFLUXDB_USER_PASSWORD
           inputs:
             - statsd:
                 service_address: ":8125"
