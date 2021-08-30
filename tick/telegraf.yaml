@@ -59,12 +59,10 @@ spec:
                 metric_separator: "_"
                 allowed_pending_messages: 10000
                 percentile_limit: 1000
-
-metrics:
-  health:
-    enabled: false
-  collect_memstats: false
-
+        metrics:
+          health:
+            enabled: false
+          collect_memstats: false
   destination:
     server: https://kubernetes.default.svc
     namespace: tick
