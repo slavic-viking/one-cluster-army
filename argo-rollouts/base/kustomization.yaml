@@ -11,7 +11,7 @@ resources:
 #- github.com/argoproj/argo-rollouts/manifests/crds
 #- github.com/argoproj/argo-rollouts/manifests/base
 #- github.com/argoproj/argo-rollouts/manifests/role
-#- github.com/argoproj/argo-rollouts/manifests/dashboard-install
+- github.com/argoproj/argo-rollouts/manifests/dashboard-install
 namespace: argo-rollouts
 transformers:
    - annotations.yaml
