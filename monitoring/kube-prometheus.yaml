@@ -81,7 +81,6 @@ spec:
             - gapit-htmlgraphics-panel
             - pierosavi-imageit-panel
             - natel-influx-admin-panel
-            - woutervh-mapbox-panel
             - flaminggoat-maptrack3d-panel
             - michaeldmoore-multistat-panel
             - isaozler-paretochart-panel
