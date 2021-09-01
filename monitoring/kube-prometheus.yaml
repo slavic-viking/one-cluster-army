@@ -15,6 +15,7 @@ spec:
     helm:
       values: |
         grafana:
+          envFromSecret: grafana-env
           admin:
             existingSecret: "grafana-admin-user"
             userKey: username
@@ -33,16 +34,97 @@ spec:
               - secretName: grafana-tls
                 hosts:
                   - grafana.wostal.eu
+          plugins:
+            - vonage-status-panel
+            - grafana-worldmap-panel
+            - grafana-clock-panel
+            - grafana-piechart-panel
+            - satellogic-3d-globe-panel
+            - aceiot-svg-panel
+            - ryantxu-ajax-panel
+            - macropower-analytics-panel
+            - ryantxu-annolist-panel
+            - novalabs-annotations-panel
+            - michaeldmoore-annunciator-panel
+            - anodot-panel
+            - volkovlabs-image-panel
+            - farski-blendstat-panel
+            - yesoreyeram-boomtable-panel
+            - yesoreyeram-boomtheme-panel
+            - digiapulssi-breadcrumb-panel
+            - digrich-bubblechart-panel
+            - speakyourcode-button-panel
+            - cloudspout-button-panel
+            - neocat-cal-heatmap-panel
+            - marcusolsson-calendar-panel
+            - petrslavotinek-carpetplot-panel
+            - sebastiangunreben-cdf-panel
+            - snuids-svg-panel
+            - integrationmatters-comparison-panel
+            - briangann-gauge-panel
+            - briangann-datatable-panel
+            - jdbranham-diagram-panel
+            - natel-discrete-panel
+            - dalvany-image-panel
+            - marcusolsson-dynamictext-panel
+            - bilibala-echarts-panel
+            - larona-epict-panel
+            - agenty-flowcharting-panel
+            - marcusolsson-gantt-panel
+            - citilogics-geoloop-panel
+            - savantly-heatmap-panel
+            - mtanda-heatmap-epoch-panel
+            - marcusolsson-hexmap-panel
+            - mtanda-histogram-panel
+            - marcusolsson-hourly-heatmap-panel
+            - aidanmountford-html-panel
+            - gapit-htmlgraphics-panel
+            - pierosavi-imageit-panel
+            - natel-influx-admin-panel
+            - woutervh-mapbox-panel
+            - flaminggoat-maptrack3d-panel
+            - michaeldmoore-multistat-panel
+            - isaozler-paretochart-panel
+            - zuburqan-parity-report-panel
+            - jeanbaptistewatenberg-percent-panel
+            - sskgo-perfcurve-panel
+            - bessler-pictureit-panel
+            - natel-plotly-panel
+            - ae3e-plotly-panel
+            - grafana-polystat-panel
+            - corpglory-progresslist-panel
+            - snuids-radar-panel
+            - scadavis-synoptic-panel/
+            - michaeldmoore-scatter-panel
+            - mxswat-separator-panel
+            - novatec-sdg-panel
+            - grafana-singlestat-panel
+            - blackmirror1-singlestat-math-panel
+            - blackmirror1-statusbygroup-panel
+            - vonage-status-panel
+            - flant-statusmap-panel
+            - marcuscalidus-svg-panel
+            - gretamosa-topology-panel
+            - gowee-traceroutemap-panel
+            - pr0ps-trackmap-panel
+            - snuids-trafficlights-panel
+            - smartmakers-trafficlight-panel
+            - marcusolsson-treemap-panel
+            - factry-untimely-panel
+            - innius-video-panel
+            - auxmoney-waterfall-panel
+            - fatcloud-windrose-panel
+            - magnesium-wordcloud-panel
           additionalDataSources:
-            - name: dupa
+            - name: InfluxDB-HomeAssistant
               type: influxdb
-              database: metrics_db
-              user: metrics_read_user
-              url: http://influx.example.com:8086/
+              database: $INFLUXDBHA_DATABASE
+              user: ${INFLUXDBHA_USERNAME}
+              url: ${INFLUXDBHA_URL}
               jsonData:
                 timeInterval: "15s"
               secureJsonData:
-                password: yourinfluxpassword
+                password: ${INFLUXDBHA_PASSWORD}
           dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
