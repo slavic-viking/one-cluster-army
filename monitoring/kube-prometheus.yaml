@@ -15,7 +15,7 @@ spec:
     helm:
       values: |
         grafana:
-          envFromSecret: grafana-env
+          envFromSecret: grafana-secret
           admin:
             existingSecret: "grafana-admin-user"
             userKey: username
