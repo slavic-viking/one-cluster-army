@@ -5,15 +5,15 @@ metadata:
   namespace: argo
   annotations:
     #ingress.kubernetes.io/whitelist-source-range: 89.64.116.199/32
-    external-dns.alpha.kubernetes.io/hostname: workflows.wostal.eu
+    external-dns.alpha.kubernetes.io/hostname: workflows.wostal.systems
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
-    - workflows.wostal.eu
+    - workflows.wostal.systems
     secretName: workflows-tls
   rules:
-  - host: workflows.wostal.eu
+  - host: workflows.wostal.systems
     http:
       paths: 
       - path: /
