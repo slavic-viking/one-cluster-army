@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: argo-workflows-ingress
+  namespace: argo
+  annotations:
+    #ingress.kubernetes.io/whitelist-source-range: 89.64.116.199/32
+    external-dns.alpha.kubernetes.io/hostname: workflows.wostal.eu
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - workflows.wostal.eu
+    secretName: workflows-tls
+  rules:
+  - host: workflows.wostal.eu
+    http:
+      paths: 
+      - path: /
+        backend:
+          serviceName: argo-server
+          servicePort: 2746
