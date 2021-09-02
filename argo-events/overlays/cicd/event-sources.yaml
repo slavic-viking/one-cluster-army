@@ -58,7 +58,11 @@ spec:
   rules:
   - host: webhook.wostal.systems
     http:
-      paths: 
+      paths:
+      - path: /k8s-demo-app
+        backend:
+          serviceName: github-eventsource-svc
+          servicePort: 12000
       - path: /wostal-website
         backend:
           serviceName: github-eventsource-svc
