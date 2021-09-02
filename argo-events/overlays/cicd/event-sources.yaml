@@ -16,7 +16,7 @@ spec:
         endpoint: /k8s-demo-app
         port: "12000"
         method: POST
-        url: https://webhook.wostal.eu
+        url: https://webhook.wostal.systems
       events:
         - "*"
       apiToken:
@@ -32,7 +32,7 @@ spec:
         endpoint: /wostal-website
         port: "12001"
         method: POST
-        url: https://webhook.wostal.eu
+        url: https://webhook.wostal.systems
       events:
         - "*"
       apiToken:
@@ -41,25 +41,25 @@ spec:
       insecure: true
       active: true
       contentType: json
-# ---
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: webhook-ingress
-#   namespace: argo-events
-#   annotations:
-#     external-dns.alpha.kubernetes.io/hostname: webhook.wostal.eu
-#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-# spec:
-#   tls:
-#   - hosts:
-#     - webhook.wostal.eu
-#     secretName: eventsources-tls
-#   rules:
-#   - host: webhook.wostal.eu
-#     http:
-#       paths: 
-#       - path: /
-#         backend:
-#           serviceName: github-eventsource-svc
-#           servicePort: 12000
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: webhook-ingress
+  namespace: argo-events
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: webhook.wostal.systems
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - webhook.wostal.systems
+    secretName: eventsources-tls
+  rules:
+  - host: webhook.wostal.systems
+    http:
+      paths: 
+      - path: /
+        backend:
+          serviceName: github-eventsource-svc
+          servicePort: 12000
