@@ -8,14 +8,12 @@ spec:
     ports:
     - port: 12000
       targetPort: 12000
-    - port: 12001
-      targetPort: 12001
   github:
-    k8s-demo-app:
+    github:
       owner: slavic-viking
-      repository: k8s-demo-app
+      repository: k8s-demo-app, wostal-website
       webhook:
-        endpoint: /k8s-demo-app
+        endpoint: /.github/
         port: "12000"
         method: POST
         url: https://webhook.wostal.systems
@@ -25,22 +23,6 @@ spec:
         name: github-access
         key: token
       insecure: false
-      active: true
-      contentType: json
-    wostal-website:
-      owner: slavic-viking
-      repository: wostal-website
-      webhook:
-        endpoint: /wostal-website
-        port: "12001"
-        method: POST
-        url: https://webhook.wostal.systems
-      events:
-        - "*"
-      apiToken:
-        name: github-access
-        key: token
-      insecure: true
       active: true
       contentType: json
 ---
@@ -61,11 +43,7 @@ spec:
   - host: webhook.wostal.systems
     http:
       paths:
-      - path: /k8s-demo-app
+      - path: /github
         backend:
           serviceName: github-eventsource-svc
           servicePort: 12000
-      - path: /wostal-website
-        backend:
-          serviceName: github-eventsource-svc
-          servicePort: 12001
