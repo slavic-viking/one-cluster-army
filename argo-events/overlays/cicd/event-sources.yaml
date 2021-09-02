@@ -8,6 +8,8 @@ spec:
     ports:
     - port: 12000
       targetPort: 12000
+    - port: 12001
+      targetPort: 12001
   github:
     k8s-demo-app:
       owner: slavic-viking
