@@ -7,9 +7,6 @@ spec:
   template:
     serviceAccountName: argo-events-sa
   dependencies:
-  - name: github
-    eventSourceName: github
-    eventName: github
   - name: k8s-demo-app
     eventSourceName: github
     eventName: github
