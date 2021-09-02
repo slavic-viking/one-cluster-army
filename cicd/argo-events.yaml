@@ -9,8 +9,8 @@ spec:
   project: cicd
   source:
     path: argo-events/overlays/cicd
-    repoURL: https://github.com/slavic-viking/k8s-system.git
-    targetRevision: HEAD
+    repoURL: https://github.com/slavic-viking/one-cluster-army.git
+    targetRevision: OCA-5-cicd
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
