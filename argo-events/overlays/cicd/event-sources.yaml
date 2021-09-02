@@ -13,7 +13,7 @@ spec:
       owner: slavic-viking
       repository: k8s-demo-app, wostal-website
       webhook:
-        endpoint: /.github/
+        endpoint: /github
         port: "12000"
         method: POST
         url: https://webhook.wostal.systems
