@@ -309,3 +309,4 @@ kubectl --namespace monitoring \
     --controller-namespace=kube-system \
     | tee misc/secrets/grafana-secrets.yaml
 
+kubectl --namespace argo-events create secret generic github-access --from-literal=token=$GH_TOKEN --output json --dry-run=client | kubeseal --format yaml --controller-name=sealed-secrets --controller-namespace=kube-system | tee argo-events/overlays/cicd/githubcred.yaml
