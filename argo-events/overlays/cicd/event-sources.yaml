@@ -59,7 +59,7 @@ spec:
   - host: webhook.wostal.systems
     http:
       paths: 
-      - path: /
+      - path: /wostal-website
         backend:
           serviceName: github-eventsource-svc
-          servicePort: 12000
+          servicePort: 12001
