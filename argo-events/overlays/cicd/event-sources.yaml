@@ -66,4 +66,4 @@ spec:
       - path: /wostal-website
         backend:
           serviceName: github-eventsource-svc
-          servicePort: 13000
+          servicePort: 12000
