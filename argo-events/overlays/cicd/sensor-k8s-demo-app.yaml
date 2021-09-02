@@ -9,7 +9,16 @@ spec:
   dependencies:
   - name: github
     eventSourceName: github
-    eventName: k8s-demo-app
+    eventName: github
+  - name: k8s-demo-app
+    eventSourceName: github
+    eventName: github
+    filters:
+      data:
+        - path: body.repository.name
+          type: string
+          value:
+            - k8s-demo-app
   triggers:
   - template:
       name: trigger
