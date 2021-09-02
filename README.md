@@ -313,3 +313,14 @@ kubectl --namespace argo-events create secret generic github-access --from-liter
 
 
 kubectl --namespace workflows create secret docker-registry regcred --docker-server=$REGISTRY_SERVER --docker-username=$REGISTRY_USER --docker-password=$REGISTRY_PASS --docker-email=$REGISTRY_EMAIL --output json --dry-run=client | kubeseal --format yaml --controller-name=sealed-secrets --controller-namespace=kube-system | tee argo-workflows/overlays/cicd/regcred.yaml
+
+kubectl --namespace argo-events \
+    create secret \
+    generic github-secret \
+    --from-literal=secret=$GH_SECTET \
+    --output json \
+    --dry-run=client \
+    | kubeseal --format yaml \
+    --controller-name=sealed-secrets \
+    --controller-namespace=kube-system \
+    | tee argo-events/overlays/cicd/github-secret.yaml
