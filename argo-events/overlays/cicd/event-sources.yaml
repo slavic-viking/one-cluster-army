@@ -4,10 +4,6 @@ kind: EventSource
 metadata:
   name: github
 spec:
-  service:
-    ports:
-    - port: 12000
-      targetPort: 12000
   github:
     k8s-demo-app:
       owner: slavic-viking
@@ -30,7 +26,7 @@ spec:
       repository: wostal-website
       webhook:
         endpoint: /wostal-website
-        port: "13000"
+        port: "12001"
         method: POST
         url: https://webhook.wostal.systems
       events:
@@ -66,4 +62,4 @@ spec:
       - path: /wostal-website
         backend:
           serviceName: github-eventsource-svc
-          servicePort: 12000
+          servicePort: 12001
