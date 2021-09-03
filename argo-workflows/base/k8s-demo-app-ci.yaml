@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generate-name: k8s-demo-app-ci-
+  name: k8s-demo-app-ci
 
 spec:
   entrypoint: k8s-demo-app-ci
