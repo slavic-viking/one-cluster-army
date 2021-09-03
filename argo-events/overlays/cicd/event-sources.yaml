@@ -11,7 +11,7 @@ spec:
   github:
     github:
       owner: slavic-viking
-      repository: k8s-demo-app, wostal-website
+      repository: k8s-demo-app
       webhook:
         endpoint: /github
         port: "12000"
