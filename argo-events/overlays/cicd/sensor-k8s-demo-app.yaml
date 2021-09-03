@@ -1,4 +1,5 @@
 ---
+
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
@@ -7,15 +8,9 @@ spec:
   template:
     serviceAccountName: argo-events-sa
   dependencies:
-  - name: k8s-demo-app
+  - name: github
     eventSourceName: github
     eventName: github
-    # filters:
-    #   data:
-    #     - path: body.repository.name
-    #       type: string
-    #       value:
-    #         - k8s-demo-app
   triggers:
   - template:
       name: trigger
@@ -29,7 +24,7 @@ spec:
             apiVersion: argoproj.io/v1alpha1
             kind: Workflow
             metadata:
-              generateName: k8s-demo-app-
+              generateName: argo-combined-app-
               namespace: workflows
             spec:
               entrypoint: build
@@ -82,11 +77,11 @@ spec:
                       - name: environment
                         value: staging
                       - name: repo_owner
-                        value: slavic-viking
+                        value: vfarcic
                       - name: repo_name
-                        value: one-cluster-army
+                        value: argo-combined-demo
                       - name: image_owner
-                        value: slavicviking
+                        value: CHANGE_ME_IMAGE_OWNER
                       - name: image_name
                         value: ""
                       - name: tag
@@ -103,11 +98,11 @@ spec:
                       - name: environment
                         value: production
                       - name: repo_owner
-                        value: slavic-viking
+                        value: vfarcic
                       - name: repo_name
-                        value: one-cluster-army
+                        value: argo-combined-demo
                       - name: image_owner
-                        value: slavicviking
+                        value: CHANGE_ME_IMAGE_OWNER
                       - name: image_name
                         value: ""
                       - name: tag
