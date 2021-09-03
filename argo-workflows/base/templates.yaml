@@ -20,6 +20,8 @@ spec:
       image: ubuntu
       args:
       - ls
+      - ls home/
+      - ls kaniko
       # image: gcr.io/kaniko-project/executor:debug
       # args:
       # - --context={{inputs.parameters.repo_url}}#{{inputs.parameters.repo_ref}}#{{inputs.parameters.repo_commit_id}}
