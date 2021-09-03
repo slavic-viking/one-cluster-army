@@ -38,9 +38,9 @@ spec:
         - --depth
         - "1"
         - --branch
-        - "{{inputs.parameters.revision}}"
+        - "{{workflow.parameters.revision}}"
         - --single-branch
-        - "{{inputs.parameters.repo}}"
+        - "{{workflow.parameters.repo}}"
 
 
     
