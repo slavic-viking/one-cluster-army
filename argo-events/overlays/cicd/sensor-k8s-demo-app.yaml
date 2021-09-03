@@ -84,7 +84,7 @@ spec:
                       - name: repo_owner
                         value: slavic-viking
                       - name: repo_name
-                        value: one-cluster-army
+                        value: k8s-demo-app
                       - name: image_owner
                         value: slavicviking
                       - name: image_name
@@ -105,7 +105,7 @@ spec:
                       - name: repo_owner
                         value: slavic-viking
                       - name: repo_name
-                        value: one-cluster-army
+                        value: k8s-demo-app
                       - name: image_owner
                         value: slavicviking
                       - name: image_name
