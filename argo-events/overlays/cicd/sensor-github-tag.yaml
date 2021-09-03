@@ -61,7 +61,7 @@ spec:
                   tasks:
                   - name: build
                     templateRef:
-                      name: container-image
+                      name: container-image-from-tag
                       template: build-kaniko-git-tag
                       clusterScope: true
                     arguments:
