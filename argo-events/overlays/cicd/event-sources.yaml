@@ -29,7 +29,7 @@ spec:
       active: true
       contentType: json
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1beta1git 
 kind: Ingress
 metadata:
   name: webhook-ingress
