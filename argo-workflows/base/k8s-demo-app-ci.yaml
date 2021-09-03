@@ -26,10 +26,6 @@ spec:
         git:
           repo: "{{workflow.parameters.repo}}"
           revision: "{{workflow.parameters.revision}}"
-    outputs:
-      artifacts:
-      - name: source
-        path: /src
     container:
       image: alpine/git
       workingDir: /src
