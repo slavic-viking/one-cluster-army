@@ -22,9 +22,9 @@ spec:
       apiToken:
         name: github-access
         key: token
-      webhookSecret:
-        name: github-secret
-        key: secret
+      # webhookSecret:
+      #   name: github-secret
+      #   key: secret
       insecure: false
       active: true
       contentType: json
