@@ -17,6 +17,8 @@ spec:
     steps:
     - - name: checkout
         template: checkout
+    - - name: build
+        template: build
 
   - name: checkout
     inputs:
@@ -37,7 +39,21 @@ spec:
         - "{{workflow.parameters.revision}}"
         - --single-branch
         - "{{workflow.parameters.repo}}"
-
+  
+  - name: build
+    inputs:
+      artifacts:
+      - name: source
+        path: /src
+    container:
+      image: gcr.io/kaniko-project/executor:debug
+      args:
+      - --context=dir:///src
+      - --destination=slavicviking/k8s-demo-app:tests
+      - --verbosity=trace
+      volumeMounts:
+        - name: regcred
+          mountPath: /kaniko/.docker/
 
     
 
