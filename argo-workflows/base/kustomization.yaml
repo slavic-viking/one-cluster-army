@@ -5,9 +5,9 @@ resources:
 - github.com/argoproj/argo-workflows/manifests/base?ref=v3.1.8
 - github.com/argoproj/argo-workflows/manifests/cluster-install/workflow-controller-rbac?ref=v3.1.8
 - github.com/argoproj/argo-workflows/manifests/cluster-install/argo-server-rbac?ref=v3.1.8
-#- templates.yaml
+- templates.yaml
 #- template-build-kaniko-git-tag.yaml
-- k8s-demo-app-ci.yaml
+#- k8s-demo-app-ci.yaml
 patchesStrategicMerge:
 - config.yaml
 namespace: argo
