@@ -10,7 +10,7 @@ spec:
     - name: repo
       value: https://github.com/slavic-viking/k8s-demo-app.git
     - name: revision
-      value: 'v0.0.1'
+      value: 'refs/tags/v0.0.1'
 
   templates:
   - name: k8s-demo-app-ci
