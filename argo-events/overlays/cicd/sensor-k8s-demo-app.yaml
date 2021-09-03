@@ -11,6 +11,12 @@ spec:
   - name: github
     eventSourceName: github
     eventName: github
+    filters:
+      data:
+        - path: body.repository.name
+          type: string
+          value:
+            - k8s-demo-app
   triggers:
   - template:
       name: trigger
