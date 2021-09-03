@@ -41,10 +41,6 @@ spec:
         - "{{workflow.parameters.repo}}"
   
   - name: build
-    inputs:
-      artifacts:
-      - name: source
-        path: /src
     container:
       image: gcr.io/kaniko-project/executor:debug
       args:
