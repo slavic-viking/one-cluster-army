@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generate-name: k8s-demo-app-ci-
+
+spec:
+  entrypoint: k8s-demo-app-ci
+  arguments:
+    parameters:
+    - name: repo
+      value: https://github.com/slavic-viking/k8s-demo-app.git
+    - name: revision
+      value: 'v0.0.1'
+
+  templates:
+  - name: k8s-demo-app-ci
+    steps:
+    - - name: checkout
+        template: checkout
+
+  - name: checkout
+    inputs:
+      artifacts:
+      - name: source
+        path: /src
+        git:
+          repo: "{{workflow.parameters.repo}}"
+          revision: "{{workflow.parameters.revision}}"
+    outputs:
+      artifacts:
+      - name: source
+        path: /src
+    container:
+      image: alpine/git
+      workingDir: /src
+      args:
+        - clone
+        - --depth
+        - "1"
+        - --branch
+        - "{{inputs.parameters.revision}}"
+        - --single-branch
+        - "{{inputs.parameters.repo}}"
+
+
+    
+
