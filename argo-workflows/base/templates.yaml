@@ -20,7 +20,7 @@ spec:
       image: gcr.io/kaniko-project/executor:debug
       args:
       #- --context={{inputs.parameters.repo_url}}#{{inputs.parameters.repo_ref}}#{{inputs.parameters.repo_commit_id}}
-      - --context={{inputs.parameters.repo_url}}#{{inputs.parameters.repo_ref}}
+      - --context={{inputs.parameters.repo_url}}
       - --destination={{inputs.parameters.container_image}}:{{inputs.parameters.container_tag}}
       - --verbosity=trace
       volumeMounts:
