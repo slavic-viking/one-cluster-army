@@ -10,12 +10,6 @@ spec:
   - name: github
     eventSourceName: github
     eventName: github
-    filters:
-      data:
-        - path: body.X-GitHub-Event
-          type: string
-          value:
-            - push
   triggers:
   - template:
       name: trigger
