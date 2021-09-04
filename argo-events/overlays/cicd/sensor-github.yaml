@@ -12,10 +12,14 @@ spec:
     eventName: github
     filters:
       data:
-        - path: body.repository.name
+        - path: body.X-GitHub-Event
           type: string
           value:
-            - k8s-demo-app
+            - release
+        - path: body.action
+          type: string
+          value:
+            - published
   triggers:
   - template:
       name: trigger
@@ -72,67 +76,6 @@ spec:
                         value: slavicviking/
                       - name: container_tag
                         value: ""
-              #     - name: promote-staging
-              #       templateRef:
-              #         name: promote
-              #         template: promote
-              #         clusterScope: true
-              #       arguments:
-              #         parameters:
-              #         - name: environment
-              #           value: staging
-              #         - name: repo_owner
-              #           value: vfarcic
-              #         - name: repo_name
-              #           value: argo-combined-demo
-              #         - name: image_owner
-              #           value: CHANGE_ME_IMAGE_OWNER
-              #         - name: image_name
-              #           value: ""
-              #         - name: tag
-              #           value: ""
-              #       dependencies:
-              #       - build
-              #     - name: promote-production
-              #       templateRef:
-              #         name: promote
-              #         template: promote
-              #         clusterScope: true
-              #       arguments:
-              #         parameters:
-              #         - name: environment
-              #           value: production
-              #         - name: repo_owner
-              #           value: vfarcic
-              #         - name: repo_name
-              #           value: argo-combined-demo
-              #         - name: image_owner
-              #           value: CHANGE_ME_IMAGE_OWNER
-              #         - name: image_name
-              #           value: ""
-              #         - name: tag
-              #           value: ""
-              #       dependencies:
-              #       - test-functional
-              #       - test-integration
-              #     - name: test-functional
-              #       template: test
-              #       dependencies:
-              #       - promote-staging
-              #     - name: test-integration
-              #       template: test
-              #       dependencies:
-              #       - promote-staging
-              # - name: test
-              #   script:
-              #     image: alpine
-              #     command: [sh]
-              #     source: |
-              #       echo This is a testing simulation...
-              #       sleep 5
-              #     volumeMounts:
-              #     - name: github-access
-              #       mountPath: /.github/
         parameters:
         - src:
             dependencyName: github
@@ -153,7 +96,7 @@ spec:
           operation: append
         - src:
             dependencyName: github
-            dataKey: body.after
+            dataKey: body.tag_name
           dest: spec.templates.0.dag.tasks.0.arguments.parameters.4.value
         - src:
             dependencyName: github
