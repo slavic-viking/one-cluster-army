@@ -9,10 +9,10 @@ metadata:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    external-dns.alpha.kubernetes.io/hostname: argo-cd.wostal.eu
+    external-dns.alpha.kubernetes.io/hostname: argo-cd.wostal.solutions
 spec:
   rules:
-  - host: argo-cd.wostal.eu
+  - host: argo-cd.wostal.solutions
     http:
       paths:
       - path: /
@@ -24,5 +24,5 @@ spec:
               name: https
   tls:
   - hosts:
-    - argo-cd.wostal.eu
+    - argo-cd.wostal.solutions
     secretName: argocd-secret

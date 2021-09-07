@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: tomasz@wostal.eu
+    email: certificate@itomm.pl
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:

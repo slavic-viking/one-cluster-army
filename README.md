@@ -122,7 +122,7 @@ sed -i "s|tomasz\@wostal.eu|$CERT_EMAIL|g" misc/cert-manager-issuers/production/
 Staging issuer
 
 ```console
-sed -i "s|tomasz\@wostal.eu|$CERT_EMAIL|g" misc/cert-manager-issuers/staginf/cert-manager-issuer.yaml
+sed -i "s|tomasz\@wostal.eu|$CERT_EMAIL|g" misc/cert-manager-issuers/staging/cert-manager-issuer.yaml
 ```
 
 Apply both manifests
@@ -212,13 +212,13 @@ sed -i "s|argo-cd.wostal.eu|argo-cd.$BASE_HOST|g" argo-cd/overlays/cicd/argocd-c
 Create project for whole CI/CD:
 
 ```console
-kubectl apply -f misc/argocd/project-cicd.yaml
+kubectl apply -f misc/argo-cd/project-cicd.yaml
 ```
 
 Create application for whole CI/CD:
 
 ```console
-kubectl apply -f misc/argocd/app-cicd.yaml
+kubectl apply -f misc/argo-cd/app-cicd.yaml
 ```
 
 Get current admin password:

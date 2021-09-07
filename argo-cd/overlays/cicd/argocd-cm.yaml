@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
 data:
-  url: https://argo-cd.wostal.eu
+  url: https://argo-cd.wostal.solutions
   statusbadge.enabled: "true"
   users.anonymous.enabled: "false"
   users.session.duration: "24h"

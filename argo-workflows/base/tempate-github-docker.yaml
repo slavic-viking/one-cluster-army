@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: github-docker
+spec:
+  serviceAccountName: workflow
+  arguments:
+    parameters:
+      - name: repo
+        value: https://github.com/slavic-viking/k8s-demo-app.git
+      - name: branch
+        value: main
+      - name: path
+        value: .
+      - name: image
+        value: slavicviking/k8s-demo-app:vtest
+  entrypoint: main
+  volumeClaimTemplates:
+    - metadata:
+        name: work
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
