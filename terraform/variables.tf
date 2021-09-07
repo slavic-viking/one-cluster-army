@@ -35,5 +35,5 @@ variable "do_default_node_pool_min_nodes" {
 
 variable "do_default_node_pool_max_nodes" {
   type    = string
-  default = "5"
+  default = "4"
 }
