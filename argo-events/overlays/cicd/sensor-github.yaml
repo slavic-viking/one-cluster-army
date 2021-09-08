@@ -8,7 +8,7 @@ spec:
     serviceAccountName: argo-events-sa
   dependencies:
   - name: github
-    eventSourceName: github
+    eventSourceName: example
     eventName: github
     filters:
         data:
