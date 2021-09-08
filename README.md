@@ -338,3 +338,18 @@ data:
     --controller-name=sealed-secrets \
     --controller-namespace=kube-system \
     | tee argo-events/overlays/cicd/githubcred.yaml
+
+echo "apiVersion: v1
+kind: Secret
+metadata:
+  name: github-access
+  namespace: workflows
+type: Opaque
+data:
+  token: $(echo -n $GH_TOKEN | base64)
+  user: $(echo -n $GH_ORG | base64)
+  email: $(echo -n $GH_EMAIL | base64)" \
+    | kubeseal --format yaml \
+    --controller-name=sealed-secrets \
+    --controller-namespace=kube-system \
+    | tee argo-workflows/overlays/workflows/githubcred.yaml
