@@ -324,3 +324,16 @@ kubectl --namespace argo-events \
     --controller-name=sealed-secrets \
     --controller-namespace=kube-system \
     | tee argo-events/overlays/cicd/github-secret.yaml
+
+
+echo "apiVersion: v1
+kind: Secret
+metadata:
+  name: github-access
+  namespace: argo-events
+type: Opaque
+data:
+  token: $(echo -n $GH_TOKEN | base64)" \
+    | kubeseal --format yaml \
+    
+    | tee argo-events/overlays/cicd/githubcred.yaml
