@@ -8,8 +8,8 @@ spec:
     serviceAccountName: argo-events-sa
   dependencies:
   - name: github
-    eventSourceName: example
-    eventName: github
+    eventSourceName: github
+    eventName: example
     filters:
         data:
           # Name of the event that triggered the delivery: [pull_request, push, yadayadayada]
