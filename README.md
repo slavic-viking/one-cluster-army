@@ -335,5 +335,6 @@ type: Opaque
 data:
   token: $(echo -n $GH_TOKEN | base64)" \
     | kubeseal --format yaml \
-    
+    --controller-name=sealed-secrets \
+    --controller-namespace=kube-system \
     | tee argo-events/overlays/cicd/githubcred.yaml
