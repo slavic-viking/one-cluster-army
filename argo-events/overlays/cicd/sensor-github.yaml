@@ -49,6 +49,7 @@ spec:
                 namespace: workflows
                 generateName: github-
               spec:
+                serviceAccountName: workflow
                 entrypoint: whalesay
                 arguments:
                   parameters:
