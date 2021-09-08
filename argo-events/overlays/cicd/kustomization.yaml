@@ -6,5 +6,5 @@ resources:
 - githubcred.yaml
 - github-secret.yaml
 - sensor-k8s-demo-app.yaml
-#- sensor-github.yaml
+- sensor-github.yaml
 namespace: argo-events
